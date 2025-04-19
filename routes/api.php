@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/user/login', [\App\Http\Controllers\Api\UserController::class, 'login']);
 
-Route::group(['path' => '/','middleware' => 'api'], function () {
+Route::group(['path' => '/'], function () {
     Route::get('/user', [\App\Http\Controllers\Api\UserController::class, 'index']);
     Route::delete('/user/{id}', [\App\Http\Controllers\Api\UserController::class, 'destroy']);
 });

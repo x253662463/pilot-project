@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace app\Http\Controllers\Api;
 
-use App\Models\UserGroup;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserGroupRequest;
 use App\Http\Requests\UpdateUserGroupRequest;
+use App\Models\UserGroup;
 
 class UserGroupController extends Controller
 {

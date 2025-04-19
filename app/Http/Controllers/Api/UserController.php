@@ -3,11 +3,14 @@
 namespace app\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Services\UserService;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -23,9 +26,9 @@ class UserController extends Controller
         return $this->jsonResponse($list);
     }
 
-    public function login(UserService $service)
+    public function login(LoginRequest $request, UserService $service)
     {
-        return $service->login();
+        return $service->login($request->post('username'), $request->post('password'));
     }
 
     /**

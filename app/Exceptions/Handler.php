@@ -41,11 +41,18 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
+
+
         if ($request->expectsJson()) {
+            $code = 500;
+            if ($e instanceof AuthException) {
+                $code = 401;
+            }
+
             return response(json_encode([
-                'code' => 500,
+                'code' => $code,
                 'message' => $e->getMessage() ?? 'Internal Server Error',
-                'data' => null
+                'data' => $e->getTrace()
             ]));
         }
     }

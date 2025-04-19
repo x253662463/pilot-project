@@ -14,7 +14,9 @@ class UserGroupFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'description' => $this->faker->text(),
+            'level' => $this->faker->numberBetween(1, 10),
         ];
     }
 }

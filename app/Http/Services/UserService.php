@@ -7,16 +7,38 @@
 
 namespace App\Http\Services;
 
+use App\Models\User;
+
 class UserService
 {
 
-    public function login()
+    public function login($username, $password)
     {
-        return [
-            'token' => '123',
-            'userInfo' => [
+        $token = \auth()->attempt(['username' => $username, 'password' => $password]);
 
-            ]
+        return [
+            'token' => $token,
+            'userInfo' => \auth()->user()
         ];
+    }
+
+    public function register($username, $email, $password, $groupId)
+    {
+        return (new User())->newQuery()->create([
+            'username' => $username,
+            'email' => $email,
+            'password' => $this->passwordHash($password),
+            'group_id' => $groupId
+        ]);
+    }
+
+    public function passwordHash($password)
+    {
+        return password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    public function passwordVerify($password, $hash): bool
+    {
+        return password_verify($password, $hash);
     }
 }

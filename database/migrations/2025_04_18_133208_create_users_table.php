@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('username')->comment('username');
             $table->string('email')->comment('email');
             $table->string('password')->comment('password');
+            $table->integer('group_id')->comment('group id');
             $table->timestamps();
         });
     }

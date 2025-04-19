@@ -15,6 +15,9 @@ class CreateUserGroupsTable extends Migration
     {
         Schema::create('user_groups', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->comment('group name');
+            $table->string('description')->comment('group description');
+            $table->integer('permission_level')->comment('group permission level');
             $table->timestamps();
         });
     }
