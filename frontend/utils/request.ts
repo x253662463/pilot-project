@@ -1,6 +1,7 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios'
 import {useUserStore} from '../stores/user'
 import router from "@/router";
+import {ElMessage} from "element-plus";
 
 class Request {
     private instance: AxiosInstance
@@ -46,6 +47,7 @@ class Request {
                     if (data.message === 'Unauthenticated.') {
                         return router.push('/login')
                     }
+                    ElMessage.error(data.message)
                     return Promise.reject(data)
                 }
             },

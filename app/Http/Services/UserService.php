@@ -24,7 +24,7 @@ class UserService
             ->where('user_groups.permission_level', '<=', $currentUser->group->permission_level)
             ->orderBy('users.' . $sortField, $sortOrder)
             ->with('group')
-            ->paginate($pageSize, ['*'], 'page', $page);
+            ->paginate($pageSize, ['users.*'], 'page', $page);
     }
 
     public function login($credentials): array
@@ -32,13 +32,19 @@ class UserService
         $token = \auth()->attempt($credentials);
 
         if (!$token) {
-            throw new Exception('validation error');
+            throw new Exception('login failed,check your username or password');
         }
 
         return [
             'token' => $token,
             'userInfo' => \auth()->user()
         ];
+    }
+
+    public function update(User $user,$data)
+    {
+        $user->update($data);
+        return $user->refresh();
     }
 
     public function register($username, $email, $password, $groupId)

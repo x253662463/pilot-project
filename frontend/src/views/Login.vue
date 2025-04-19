@@ -24,7 +24,7 @@
 
 <script lang="ts" setup>
 import {reactive, ref} from 'vue'
-import type {FormInstance, FormRules} from 'element-plus'
+import {ElMessage, type FormInstance, type FormRules} from 'element-plus'
 import type {User} from "../../types";
 import {useUserStore} from "../../stores/user.ts";
 import {useRouter} from "vue-router";
@@ -54,11 +54,10 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         if (valid) {
             state.login(user.username, user.password)
                 .then(res => {
-                    console.log(res)
                     return router.push({name: 'home1'})
                 })
         } else {
-            console.log('error submit!', fields)
+            ElMessage('validate error')
         }
     })
 }

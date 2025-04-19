@@ -83,10 +83,9 @@ class UserController extends Controller
      * @param \App\Models\User $user
      * @return Response
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, User $user, UserService $service)
     {
-        $user->update($request->only(['username', 'email', 'group_id']));
-        return $this->jsonResponse($user, 0, '更新成功');
+        return $this->jsonResponse($service->update($user, $request->only(['username', 'email'])));
     }
 
     /**

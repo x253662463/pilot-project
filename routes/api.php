@@ -17,6 +17,6 @@ Route::post('/user/login', [\App\Http\Controllers\Api\UserController::class, 'lo
 
 Route::group(['path' => '/','middleware' => 'auth:api'], function () {
     Route::get('/user', [\App\Http\Controllers\Api\UserController::class, 'index']);
-    Route::delete('/user/{id}', [\App\Http\Controllers\Api\UserController::class, 'destroy']);
-    Route::put('/user/{id}', [\App\Http\Controllers\Api\UserController::class, 'update']);
+    Route::delete('/user/{user}', [\App\Http\Controllers\Api\UserController::class, 'destroy']);
+    Route::put('/user/{user}', [\App\Http\Controllers\Api\UserController::class, 'update']);
 });

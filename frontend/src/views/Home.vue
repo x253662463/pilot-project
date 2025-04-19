@@ -2,10 +2,11 @@
     <el-container>
         <el-header class="flex justify-between">
             <div class="text-2xl text-bold">Pilot Project</div>
-            <div class="flex justify-start">
+            <div class="flex justify-start align-items-center">
                 <el-avatar size="small" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"/>
                 <span class="ml-2">{{ useUser.userInfo?.username }}</span>
-                <span class="ml-2">{{ useUser.userInfo?.group?.name }}</span>
+                <el-button disabled type="info">{{ useUser.userInfo?.group?.name }}</el-button>
+                <span class="ml-2"></span>
                 <el-button class="ml-2" type="primary" @click="useUser.logout">Logout</el-button>
 
             </div>

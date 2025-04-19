@@ -1,17 +1,18 @@
 # Pilot Project
-## 技术栈
-### 后端
-- php 7.4.2
-- mysql 5.7.34
-- laravel 8.75
-- jwt 登录认证
-### 前端
-- vue 3.2.47
-- axios
-- element-plus
-- pinia
-- tailwindcss
-api
+## Technology Stack
+### Backend
+- PHP 7.4.2
+- MySQL 5.7.34
+- Laravel 8.75 (with JWT authentication)
+- JSON Web Tokens (JWT) for secure authentication
+### Frontend
+- Vue.js 3.2.47 (Composition API)
+- Axios for HTTP requests
+- Element Plus UI component library
+- Pinia for state management
+- Tailwind CSS for utility-first styling
+## Development Setup
+### API Server Installation
 ```shell
 composer install
 php artisan key:generate
@@ -19,18 +20,21 @@ php artisan jwt:secret
 php artisan migrate
 php artisan serve
 ```
-frontend
+### Frontend Installation
 ```shell
 cd frontend
 npm install
 npm run dev
 ```
+Access the application at:
+🌐 http://localhost:5173
 
-to run frontend
-visit http://localhost:5173
-
-# 待优化
-- [ ] 所有操作请求在拆分成Service层，减少Controller代码
-- [ ] 添加日志记录
-- [ ] 添加单元测试
-
+## Roadmap & Improvements
+### High Priority Refactors
+- [ ] Implement Service layer architecture to separate business logic from controllers
+- [ ] Enhance logging system for better debugging and monitoring
+- [ ] Develop comprehensive unit tests (PHPUnit for backend, Vitest for frontend)
+### Recommended Future Enhancements
+- [ ] API documentation (Postman/Swagger)
+- [ ] Database query optimization
+- [ ] Error handling standardization

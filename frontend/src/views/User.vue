@@ -53,6 +53,7 @@
         <div>
             <div>Username:{{ currentUser.username }}</div>
             <div>Email:{{ currentUser.email }}</div>
+            <div>Group:{{ currentUser.group?.name }}</div>
         </div>
         <template #footer>
             <div class="dialog-footer">
@@ -66,11 +67,8 @@
             <el-form-item label="Username">
                 <el-input v-model="currentUser.username" autocomplete="off"/>
             </el-form-item>
-            <el-form-item label="Group">
-                <el-select v-model="currentUser.group_id" placeholder="Please select a group">
-                    <el-option label="Zone No.1" value="shanghai"/>
-                    <el-option label="Zone No.2" value="beijing"/>
-                </el-select>
+            <el-form-item label="Email">
+                <el-input v-model="currentUser.email" autocomplete="off"/>
             </el-form-item>
         </el-form>
         <template #footer>
@@ -121,6 +119,7 @@ const handleEdit = (row) => {
 const saveEdit = () => {
     apiUserEdit(currentUser.value).then(() => {
         loadData()
+        editShow.value = false
     })
 }
 
@@ -170,6 +169,12 @@ const loadData = () => {
     apiUserList(currentPage.value, pageSize.value, sortField.value, sortOrder.value).then(res => {
         userList.value = res.data
         total.value = res.total
+    })
+}
+
+const loadGroup = () => {
+    apiGroupList().then(res => {
+        groupList.value = res
     })
 }
 
