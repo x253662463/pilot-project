@@ -10,7 +10,6 @@ use App\Http\Services\UserService;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -19,16 +18,18 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $list = (new User())->newQuery()
-            ->paginate();
+        $user = $request->user();
+        $list = (new User())
+            ->newQuery()
+            ->paginate($request->get('pageSize'));
         return $this->jsonResponse($list);
     }
 
     public function login(LoginRequest $request, UserService $service)
     {
-        return $service->login($request->post('username'), $request->post('password'));
+        return $this->jsonResponse($service->login($request->only(['username', 'password'])));
     }
 
     /**

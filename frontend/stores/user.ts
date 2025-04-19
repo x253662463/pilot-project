@@ -1,5 +1,4 @@
 import {defineStore} from 'pinia'
-import request from '../utils/request'
 import {apiLogin} from "../api/user.ts";
 
 export const useUserStore = defineStore('user', {
@@ -9,14 +8,10 @@ export const useUserStore = defineStore('user', {
     }),
     actions: {
         async login(username: string, password: string) {
-            apiLogin(username, password).then(res => {
-                this.token = res.token
-                this.userInfo = res.userInfo
-                return true
-            }).catch(error => {
-                return false
-            })
-            return false
+            let res = await apiLogin(username, password)
+            this.token = res.token
+            this.userInfo = res.userInfo
+            return res
         },
         async logout() {
             this.token = ''

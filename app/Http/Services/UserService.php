@@ -12,9 +12,9 @@ use App\Models\User;
 class UserService
 {
 
-    public function login($username, $password)
+    public function login($credentials): array
     {
-        $token = \auth()->attempt(['username' => $username, 'password' => $password]);
+        $token = \auth()->attempt($credentials);
 
         return [
             'token' => $token,

@@ -52,6 +52,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     await formEl.validate((valid, fields) => {
         if (valid) {
             state.login(user.username, user.password).then((res) => {
+                console.log(res)
                 if (res) {
                     router.push('/')
                 }

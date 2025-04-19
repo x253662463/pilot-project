@@ -30,7 +30,7 @@
         </el-col>
     </el-row>
 
-    <el-row justify="end">
+    <el-row justify="end" class="mt-5">
         <el-pagination
             v-model:current-page="currentPage"
             v-model:page-size="pageSize"
@@ -86,7 +86,7 @@
 </template>
 
 <script lang="ts" setup>
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {apiUserDelete, apiUserList} from "../../api/user.ts";
 import {ElMessage, ElMessageBox} from "element-plus";
 
@@ -142,11 +142,11 @@ const handleDelete = (row) => {
 }
 
 const handleSizeChange = (val) => {
-    console.log(`每页 ${val} 条`)
+    pageSize.value = val
 }
 
 const handleCurrentChange = (val) => {
-    console.log(`当前页: ${val}`)
+    currentPage.value = val
 }
 
 const loadData = () => {
@@ -155,6 +155,13 @@ const loadData = () => {
         total.value = res.total
     })
 }
+
+watch(currentPage, () => {
+    loadData()
+})
+watch(pageSize, () => {
+    loadData()
+})
 
 onMounted(() => {
     loadData()
