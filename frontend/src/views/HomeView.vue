@@ -11,6 +11,7 @@
                 <el-table-column prop="id" label="ID" sortable="custom"/>
                 <el-table-column prop="username" label="Username" sortable="custom"/>
                 <el-table-column prop="email" label="Email"/>
+                <el-table-column prop="group.name" label="Group"/>
                 <el-table-column label="Operations">
                     <template #default="scope">
                         <el-button size="small" @click="handleDetail( scope.row)" type="info">
