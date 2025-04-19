@@ -18,4 +18,5 @@ Route::post('/user/login', [\App\Http\Controllers\Api\UserController::class, 'lo
 Route::group(['path' => '/'], function () {
     Route::get('/user', [\App\Http\Controllers\Api\UserController::class, 'index']);
     Route::delete('/user/{id}', [\App\Http\Controllers\Api\UserController::class, 'destroy']);
+    Route::put('/user/{id}', [\App\Http\Controllers\Api\UserController::class, 'update']);
 });

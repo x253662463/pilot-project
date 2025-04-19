@@ -23,6 +23,7 @@ class UserController extends Controller
         $user = $request->user();
         $list = (new User())
             ->newQuery()
+            ->orderBy($request->get('sortField', 'id'), $request->get('sortOrder', 'desc'))
             ->paginate($request->get('pageSize'));
         return $this->jsonResponse($list);
     }
@@ -84,7 +85,8 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $user->update($request->only(['username', 'email', 'group_id']));
+        return $this->jsonResponse($user, 0, '更新成功');
     }
 
     /**

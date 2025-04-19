@@ -1,13 +1,15 @@
 <template>
+    <h1 class="text-2xl">User List</h1>
     <el-row>
         <el-col :span="24">
             <el-table
                 :data="userList"
-                :default-sort="{ prop: 'username', order: 'descending' }"
+                :default-sort="{ prop: 'id', order: 'descending' }"
+                @sort-change="sortChange"
                 style="width: 100%"
             >
-                <el-table-column prop="id" label="ID" sortable/>
-                <el-table-column prop="username" label="Username" sortable/>
+                <el-table-column prop="id" label="ID" sortable="custom"/>
+                <el-table-column prop="username" label="Username" sortable="custom"/>
                 <el-table-column prop="email" label="Email"/>
                 <el-table-column label="Operations">
                     <template #default="scope">
@@ -46,7 +48,7 @@
 
 
     <el-dialog v-model="detailShow" title="Detail" width="500">
-        <el-avatar size="small" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
+        <el-avatar size="small" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"/>
         <div>
             <div>{{ currentUser.username }}</div>
             <div>{{ currentUser.email }}</div>
@@ -61,23 +63,23 @@
         </template>
     </el-dialog>
 
-    <el-dialog v-model="editShow" title="Shipping address" width="500">
+    <el-dialog v-model="editShow" title="Edit User" width="500">
         <el-form :model="currentUser">
             <el-form-item label="Username">
-                <el-input v-model="currentUser.username" autocomplete="off" />
+                <el-input v-model="currentUser.username" autocomplete="off"/>
             </el-form-item>
             <el-form-item label="Group">
                 <el-select v-model="currentUser.group_id" placeholder="Please select a group">
-                    <el-option label="Zone No.1" value="shanghai" />
-                    <el-option label="Zone No.2" value="beijing" />
+                    <el-option label="Zone No.1" value="shanghai"/>
+                    <el-option label="Zone No.2" value="beijing"/>
                 </el-select>
             </el-form-item>
         </el-form>
         <template #footer>
             <div class="dialog-footer">
                 <el-button @click="editShow = false">Cancel</el-button>
-                <el-button type="primary" @click="editShow = false">
-                    Confirm
+                <el-button type="primary" @click="saveEdit">
+                    Save
                 </el-button>
             </div>
         </template>
@@ -87,7 +89,7 @@
 
 <script lang="ts" setup>
 import {onMounted, ref, watch} from "vue";
-import {apiUserDelete, apiUserList} from "../../api/user.ts";
+import {apiUserDelete, apiUserEdit, apiUserList} from "../../api/user.ts";
 import {ElMessage, ElMessageBox} from "element-plus";
 
 const userList = ref([])
@@ -98,9 +100,14 @@ const currentPage = ref(1)
 const pageSize = ref(10)
 const total = ref(0)
 
+const sortOrder = ref('desc')
+const sortField = ref('id')
+
 interface User {
+    id?: number
     username: string
-    email: string
+    email: string,
+    group_id: number
 }
 
 const handleDetail = (row) => {
@@ -111,6 +118,18 @@ const handleDetail = (row) => {
 const handleEdit = (row) => {
     currentUser.value = row
     editShow.value = true
+}
+
+const saveEdit = () => {
+    apiUserEdit(currentUser.value).then(() => {
+        loadData()
+    })
+}
+
+const sortChange = (val) => {
+    sortField.value = val.prop
+    sortOrder.value = val.order === 'ascending' ? 'asc' : 'desc';
+    console.log(sortOrder.value)
 }
 
 const handleDelete = (row) => {
@@ -150,7 +169,7 @@ const handleCurrentChange = (val) => {
 }
 
 const loadData = () => {
-    apiUserList(currentPage.value,pageSize.value).then(res => {
+    apiUserList(currentPage.value, pageSize.value, sortField.value, sortOrder.value).then(res => {
         userList.value = res.data
         total.value = res.total
     })
@@ -160,6 +179,12 @@ watch(currentPage, () => {
     loadData()
 })
 watch(pageSize, () => {
+    loadData()
+})
+watch(sortField, () => {
+    loadData()
+})
+watch(sortOrder, () => {
     loadData()
 })
 

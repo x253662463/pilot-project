@@ -1,7 +1,8 @@
 import request from "../utils/request.js";
+import type {User} from "../types";
 
-export const apiUserList = (page: number, pageSize: number = 10) => {
-    let res = request.get('/user', {page, pageSize})
+export const apiUserList = (page: number, pageSize: number = 10, sortField: 'id', sortOrder = 'asc') => {
+    let res = request.get('/user', {page, pageSize, sortField, sortOrder})
     return Promise.resolve(res)
 }
 
@@ -10,8 +11,9 @@ export const apiLogin = (username: string, password: string) => {
     return Promise.resolve(res)
 }
 
-export const apiUserEdit = (username: string, password: string) => {
-    let res = request.post('/user', {username, password})
+export const apiUserEdit = (user: User) => {
+    console.log(user)
+    let res = request.put('/user/' + user.id, user)
     return Promise.resolve(res)
 }
 
