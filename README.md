@@ -14,20 +14,30 @@
 ## Development Setup
 ### API Server Installation
 ```shell
+# install dependencies
 composer install
+
+cp .env.example .env
+# need to configure .env file,change database config
+#generate key
 php artisan key:generate
+#generate jwt secret
 php artisan jwt:secret
-php artisan migrate
+# run migrations
+php artisan migrate --seed
+# start server
 php artisan serve
 ```
 ### Frontend Installation
 ```shell
 cd frontend
+# install dependencies
 npm install
+# start development server
 npm run dev
 ```
 Access the application at:
-🌐 http://localhost:5173
+http://localhost:5173
 
 ## Roadmap & Improvements
 ### High Priority Refactors
