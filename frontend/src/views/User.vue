@@ -172,12 +172,6 @@ const loadData = () => {
     })
 }
 
-const loadGroup = () => {
-    apiGroupList().then(res => {
-        groupList.value = res
-    })
-}
-
 watch(currentPage, () => {
     loadData()
 })

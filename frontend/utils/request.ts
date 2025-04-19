@@ -1,4 +1,4 @@
-import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios'
+import axios, {type AxiosInstance, type AxiosRequestConfig, type AxiosResponse} from 'axios'
 import {useUserStore} from '../stores/user'
 import router from "@/router";
 import {ElMessage} from "element-plus";

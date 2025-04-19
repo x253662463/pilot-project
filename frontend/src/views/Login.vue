@@ -54,7 +54,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         if (valid) {
             state.login(user.username, user.password)
                 .then(res => {
-                    return router.push({name: 'home1'})
+                    return router.push({name: 'user'})
                 })
         } else {
             ElMessage('validate error')
