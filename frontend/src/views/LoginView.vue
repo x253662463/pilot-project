@@ -27,8 +27,9 @@ import {reactive, ref} from 'vue'
 import type {FormInstance, FormRules} from 'element-plus'
 import type {User} from "../../types";
 import {useUserStore} from "../../stores/user.ts";
-import router from "@/router";
+import {useRouter} from "vue-router";
 
+let router = useRouter()
 
 const loginRef = ref<FormInstance>()
 const user = reactive<User>({
@@ -51,12 +52,11 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     if (!formEl) return
     await formEl.validate((valid, fields) => {
         if (valid) {
-            state.login(user.username, user.password).then((res) => {
-                console.log(res)
-                if (res) {
-                    router.push('/')
-                }
-            })
+            state.login(user.username, user.password)
+                .then(res => {
+                    console.log(res)
+                    return router.push({name: 'home1'})
+                })
         } else {
             console.log('error submit!', fields)
         }

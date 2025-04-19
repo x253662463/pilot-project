@@ -8,13 +8,27 @@
 namespace App\Http\Services;
 
 use App\Models\User;
+use Exception;
 
 class UserService
 {
 
+    public function list($page = 1, $pageSize = 10, $sortField = 'id', $sortOrder = 'desc')
+    {
+        return (new User())
+            ->newQuery()
+            ->orderBy($sortField, $sortOrder)
+            ->with('group')
+            ->paginate($pageSize, ['*'], 'page', $page);
+    }
+
     public function login($credentials): array
     {
         $token = \auth()->attempt($credentials);
+
+        if (!$token) {
+            throw new Exception('validation error');
+        }
 
         return [
             'token' => $token,

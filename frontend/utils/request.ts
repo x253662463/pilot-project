@@ -24,10 +24,11 @@ class Request {
         this.instance.interceptors.request.use(
             (config) => {
                 const userStore = useUserStore()
+                userStore.initialize()
                 if (userStore.token) {
                     config.headers.Authorization = `Bearer ${userStore.token}`
                 }
-
+                console.log(config)
                 return config
             },
             (error) => {
@@ -42,7 +43,9 @@ class Request {
                 if (data.code === 0) {
                     return data.data
                 } else {
-                    //todo:display error message
+                    if (data.message === 'Unauthenticated.') {
+                        return router.push('/login')
+                    }
                     return Promise.reject(data)
                 }
             },
@@ -51,10 +54,8 @@ class Request {
                     const {status} = error.response
                     switch (status) {
                         case 401:
-                            router.push('/login')
                             break
                         case 500:
-                            // todo:display error message
                             break
                         default:
                             console.error(`http error: ${status}`)

@@ -18,14 +18,14 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function index(Request $request): Response
+    public function index(Request $request, UserService $service): Response
     {
-        $user = $request->user();
-        $list = (new User())
-            ->newQuery()
-            ->orderBy($request->get('sortField', 'id'), $request->get('sortOrder', 'desc'))
-            ->paginate($request->get('pageSize'));
-        return $this->jsonResponse($list);
+        $page = $request->input('page', 1);
+        $pageSize = $request->input('pageSize', 10);
+        $sort = $request->input('sortField', 'id');
+        $order = $request->input('sortOrder', 'desc');
+
+        return $this->jsonResponse($service->list($page, $pageSize, $sort, $order));
     }
 
     public function login(LoginRequest $request, UserService $service)
