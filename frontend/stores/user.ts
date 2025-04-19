@@ -1,5 +1,6 @@
 import {defineStore} from 'pinia'
 import {apiLogin} from "../api/user.ts";
+import router from "@/router";
 
 export const useUserStore = defineStore('user', {
     state: () => ({
@@ -20,6 +21,7 @@ export const useUserStore = defineStore('user', {
             this.userInfo = null
             localStorage.removeItem('token')
             localStorage.removeItem('userInfo')
+            router.push('/login')
         },
         initialize() {
             const token = localStorage.getItem('token')

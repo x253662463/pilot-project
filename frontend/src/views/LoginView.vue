@@ -4,7 +4,7 @@
         :model="user"
         :rules="rules"
         label-width="auto"
-        class="mx-auto max-w-120 mt-24 space-y-2"
+        class="mx-auto max-w-120 mt-48 space-y-2"
     >
         <h1 class="text-center text-2xl mb-10">Pilot Project</h1>
         <el-form-item label="Username" prop="username">
@@ -13,12 +13,12 @@
         <el-form-item label="Password" prop="password">
             <el-input size="large" v-model="user.password" placeholder="please input password"/>
         </el-form-item>
-        <el-form-item class="align-items-center">
+        <div class="flex justify-center">
             <el-button type="primary" @click="submitForm(loginRef)">
                 Login
             </el-button>
             <el-button @click="resetForm(loginRef)">Reset</el-button>
-        </el-form-item>
+        </div>
     </el-form>
 </template>
 

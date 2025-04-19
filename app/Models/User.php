@@ -20,6 +20,8 @@ class User extends Authenticatable implements JWTSubject
         'password',
     ];
 
+    protected $with = ['group'];
+
     public function group()
     {
         return $this->hasOne(UserGroup::class, 'id', 'group_id');

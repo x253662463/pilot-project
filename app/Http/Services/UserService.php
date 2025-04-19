@@ -8,6 +8,7 @@
 namespace App\Http\Services;
 
 use App\Models\User;
+use App\Models\UserGroup;
 use Exception;
 
 class UserService
@@ -15,9 +16,13 @@ class UserService
 
     public function list($page = 1, $pageSize = 10, $sortField = 'id', $sortOrder = 'desc')
     {
+        $currentUser = \auth()->user();
+
         return (new User())
             ->newQuery()
-            ->orderBy($sortField, $sortOrder)
+            ->leftJoin((new UserGroup())->getTable(), 'user_groups.id', '=', 'users.group_id')
+            ->where('user_groups.permission_level', '<=', $currentUser->group->permission_level)
+            ->orderBy('users.' . $sortField, $sortOrder)
             ->with('group')
             ->paginate($pageSize, ['*'], 'page', $page);
     }

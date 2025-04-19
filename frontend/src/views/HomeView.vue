@@ -51,15 +51,12 @@
     <el-dialog v-model="detailShow" title="Detail" width="500">
         <el-avatar size="small" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"/>
         <div>
-            <div>{{ currentUser.username }}</div>
-            <div>{{ currentUser.email }}</div>
+            <div>Username:{{ currentUser.username }}</div>
+            <div>Email:{{ currentUser.email }}</div>
         </div>
         <template #footer>
             <div class="dialog-footer">
-                <el-button @click="detailShow = false">Cancel</el-button>
-                <el-button type="primary" @click="detailShow = false">
-                    Confirm
-                </el-button>
+                <el-button @click="detailShow = false">Close</el-button>
             </div>
         </template>
     </el-dialog>
