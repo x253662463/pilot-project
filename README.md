@@ -44,10 +44,10 @@ http://localhost:5173
 #### super admin
 username:test
 
-password:test123[
+password:test123
 #### admin
 username:test2
-]()
+
 password:test123
 #### editor
 username:test3
