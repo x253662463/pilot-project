@@ -39,6 +39,21 @@ npm run dev
 Access the application at:
 http://localhost:5173
 
+
+### user account:
+#### super admin
+username:test
+
+password:test123[
+#### admin
+username:test2
+]()
+password:test123
+#### editor
+username:test3
+
+password:test123
+
 ## Roadmap & Improvements
 ### High Priority Refactors
 - [ ] Implement Service layer architecture to separate business logic from controllers
